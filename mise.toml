@@ -10,3 +10,7 @@ run = "uv run --script scripts/genereer-summary.py"
 [tasks.fonts]
 description = "Download en subset de Firda-fonts naar theme/fonts/"
 run = "uv run --script scripts/fonts.py"
+
+[tasks.qr]
+description = "Zet printfooter met QR in de gebouwde HTML en kopieer fonts"
+run = "uv run --script scripts/voeg-print-qr-toe.py"
