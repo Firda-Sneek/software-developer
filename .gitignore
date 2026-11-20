@@ -1,0 +1,17 @@
+# Build output
+book/
+node_modules/
+.gradle/
+**/build/
+!**/src/**/build/
+
+# Generated fonts (SIL OFL; gemaakt met mise run fonts)
+**/*.woff2
+
+# Editor / OS
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+*.swp
+.mise.toml.local
