@@ -14,4 +14,8 @@ site-url = "/software-developer/"
 git-repository-url = "https://github.com/Firda-Sneek/software-developer"
 default-theme = "light"
 preferred-dark-theme = "coal"
-additional-css = ["theme/css/firda.css"]
+additional-css = ["theme/css/firda.css", "theme/css/print.css"]
+additional-js = ["theme/print-datum.js"]
+
+[output.html.print]
+enable = false
