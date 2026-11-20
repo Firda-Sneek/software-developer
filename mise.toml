@@ -6,3 +6,7 @@ mdbook = "0.5.4"
 [tasks.summary]
 description = "Genereer src/SUMMARY.md uit catalogus.yaml"
 run = "uv run --script scripts/genereer-summary.py"
+
+[tasks.fonts]
+description = "Download en subset de Firda-fonts naar theme/fonts/"
+run = "uv run --script scripts/fonts.py"

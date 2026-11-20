@@ -1,0 +1,274 @@
+/* Firda-laag bovenop de standaard mdBook-thema's light en navy.
+ * We overschrijven de CSS-variabelen uit theme/css/variables.css en voegen
+ * alleen toe wat variabelen niet kunnen: fonts, logo, sectiekoppen in de
+ * sidebar en een rustige menubalk-lijn. Geen chrome.css of general.css.
+ * Tokens uit template.firda-css (firda-template v0.3.1).
+ */
+
+@font-face { font-family: "Work Sans"; font-style: normal; font-weight: 300; font-display: swap; src: url("../fonts/WorkSans-Light.woff2") format("woff2"); }
+@font-face { font-family: "Work Sans"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/WorkSans-Regular.woff2") format("woff2"); }
+@font-face { font-family: "Work Sans"; font-style: italic; font-weight: 400; font-display: swap; src: url("../fonts/WorkSans-Italic.woff2") format("woff2"); }
+@font-face { font-family: "Work Sans"; font-style: normal; font-weight: 500; font-display: swap; src: url("../fonts/WorkSans-Medium.woff2") format("woff2"); }
+@font-face { font-family: "Work Sans"; font-style: normal; font-weight: 600; font-display: swap; src: url("../fonts/WorkSans-SemiBold.woff2") format("woff2"); }
+@font-face { font-family: "Work Sans"; font-style: normal; font-weight: 700; font-display: swap; src: url("../fonts/WorkSans-Bold.woff2") format("woff2"); }
+@font-face { font-family: "Work Sans"; font-style: italic; font-weight: 700; font-display: swap; src: url("../fonts/WorkSans-BoldItalic.woff2") format("woff2"); }
+@font-face { font-family: "Libertinus Serif"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/LibertinusSerif-Regular.woff2") format("woff2"); }
+
+:root {
+  --firda-leisteen-groen: #3a5757;
+  --firda-morgendauw-blauw: #95cdea;
+  --firda-levendig-geel: #ffcd00;
+  --firda-kei-grijs: #7e9e9b;
+  --firda-jade-grijsgroen: #bccec2;
+  --firda-wit: #ffffff;
+  --firda-zowat-zwart: #3c3c3c;
+  --firda-font-kop: "Libertinus Serif", Constantia, Georgia, "Times New Roman", serif;
+  --firda-font-tekst: "Work Sans", "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+
+  /* Breedte: vul de ruimte naast de sidebar, geen smalle kolom. */
+  --content-max-width: calc(100vw - var(--sidebar-width) - 6rem);
+}
+
+/* ----- Firda licht (mdBook-thema "light") ----- */
+.light,
+html:not(.js) {
+  --bg: #ffffff;
+  --fg: #3c3c3c;
+
+  --sidebar-bg: #f2f5f3;
+  --sidebar-fg: #3c3c3c;
+  --sidebar-non-existant: #555555;
+  --sidebar-active: #3a5757;
+  --sidebar-spacer: #bccec2;
+
+  --scrollbar: #7e9e9b;
+  --icons: #3a5757;
+  --icons-hover: #2c4545;
+
+  --links: #3a5757;
+  --inline-code-color: #3c3c3c;
+
+  --theme-popup-bg: #ffffff;
+  --theme-popup-border: #bccec2;
+  --theme-hover: #e8efeb;
+
+  --quote-bg: #f2f5f3;
+  --quote-border: #bccec2;
+  --warning-border: #ffcd00;
+
+  --table-border-color: #bccec2;
+  --table-header-bg: #bccec2;
+  --table-alternate-bg: #f2f5f3;
+
+  --searchbar-border-color: #7e9e9b;
+  --searchbar-bg: #ffffff;
+  --searchbar-fg: #3c3c3c;
+  --searchbar-shadow-color: #bccec2;
+  --searchresults-header-fg: #555555;
+  --searchresults-border-color: #bccec2;
+  --searchresults-li-bg: #f2f5f3;
+  --search-mark-bg: #ffcd00;
+
+  --color-scheme: light;
+  --footnote-highlight: #bccec2;
+  --overlay-bg: rgba(58, 87, 87, 0.2);
+
+  --blockquote-note-color: #3a5757;
+  --blockquote-tip-color: #2c4545;
+  --blockquote-important-color: #3a5757;
+  --blockquote-warning-color: #3c3c3c;
+  --blockquote-caution-color: #8a1f1f;
+
+  --sidebar-header-border-color: #3a5757;
+  --firda-logo-filter: none;
+}
+
+/* ----- Firda donker (mdBook-thema "navy") ----- */
+.navy,
+html.navy {
+  --bg: #1b2626;
+  --fg: #f2f5f3;
+
+  --sidebar-bg: #162020;
+  --sidebar-fg: #f2f5f3;
+  --sidebar-non-existant: #c9d6d0;
+  --sidebar-active: #d3e0da;
+  --sidebar-spacer: #3a5757;
+
+  --scrollbar: #7e9e9b;
+  --icons: #d3e0da;
+  --icons-hover: #ffffff;
+
+  /* Groen-grijze link, geen blauw. 11,4:1 op #1b2626. */
+  --links: #d3e0da;
+  --inline-code-color: #f2f5f3;
+
+  --theme-popup-bg: #162020;
+  --theme-popup-border: #3a5757;
+  --theme-hover: #243232;
+
+  --quote-bg: #243232;
+  --quote-border: #3a5757;
+  --warning-border: #ffcd00;
+
+  --table-border-color: #3a5757;
+  --table-header-bg: #3a5757;
+  --table-alternate-bg: #223030;
+
+  --searchbar-border-color: #7e9e9b;
+  --searchbar-bg: #1f2c2c;
+  --searchbar-fg: #f2f5f3;
+  --searchbar-shadow-color: #3a5757;
+  --searchresults-header-fg: #c9d6d0;
+  --searchresults-border-color: #3a5757;
+  --searchresults-li-bg: #243232;
+  --search-mark-bg: #ffcd00;
+
+  --color-scheme: dark;
+  --footnote-highlight: #3a5757;
+  --overlay-bg: rgba(0, 0, 0, 0.45);
+
+  --blockquote-note-color: #d3e0da;
+  --blockquote-tip-color: #bccec2;
+  --blockquote-important-color: #d3e0da;
+  --blockquote-warning-color: #ffcd00;
+  --blockquote-caution-color: #f2b4b4;
+
+  --sidebar-header-border-color: #bccec2;
+  --firda-logo-filter: brightness(0) invert(1);
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not(.js) {
+    --bg: #1b2626;
+    --fg: #f2f5f3;
+    --sidebar-bg: #162020;
+    --sidebar-fg: #f2f5f3;
+    --sidebar-non-existant: #c9d6d0;
+    --sidebar-active: #d3e0da;
+    --sidebar-spacer: #3a5757;
+    --scrollbar: #7e9e9b;
+    --icons: #d3e0da;
+    --icons-hover: #ffffff;
+    --links: #d3e0da;
+    --inline-code-color: #f2f5f3;
+    --theme-popup-bg: #162020;
+    --theme-popup-border: #3a5757;
+    --theme-hover: #243232;
+    --quote-bg: #243232;
+    --quote-border: #3a5757;
+    --warning-border: #ffcd00;
+    --table-border-color: #3a5757;
+    --table-header-bg: #3a5757;
+    --table-alternate-bg: #223030;
+    --searchbar-border-color: #7e9e9b;
+    --searchbar-bg: #1f2c2c;
+    --searchbar-fg: #f2f5f3;
+    --searchbar-shadow-color: #3a5757;
+    --searchresults-header-fg: #c9d6d0;
+    --searchresults-border-color: #3a5757;
+    --searchresults-li-bg: #243232;
+    --search-mark-bg: #ffcd00;
+    --color-scheme: dark;
+    --footnote-highlight: #3a5757;
+    --overlay-bg: rgba(0, 0, 0, 0.45);
+    --blockquote-note-color: #d3e0da;
+    --blockquote-tip-color: #bccec2;
+    --blockquote-important-color: #d3e0da;
+    --blockquote-warning-color: #ffcd00;
+    --blockquote-caution-color: #f2b4b4;
+    --sidebar-header-border-color: #bccec2;
+    --firda-logo-filter: brightness(0) invert(1);
+  }
+}
+
+/* Typografie: body Work Sans, koppen Libertinus. */
+html,
+body,
+.sidebar,
+.menu-bar,
+.content {
+  font-family: var(--firda-font-tekst);
+}
+
+.content h1,
+.content h2,
+.menu-title {
+  font-family: var(--firda-font-kop);
+  font-weight: 400;
+}
+
+.content h3,
+.content h4,
+.content h5,
+.content h6 {
+  font-family: var(--firda-font-tekst);
+  font-weight: 600;
+  color: var(--links);
+}
+
+/* Logo: klein, boven in de sidebar, zonder driehoek.
+ * De scrollbox is position:absolute over de hele sidebar; die begint
+ * daarom onder het logo, niet eroverheen. */
+.firda-logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: block;
+  padding: 1.1rem 1.2rem 0.8rem;
+  background: var(--sidebar-bg);
+}
+.firda-logo img {
+  display: block;
+  width: 7.2rem;
+  height: auto;
+  filter: var(--firda-logo-filter);
+}
+.sidebar .sidebar-scrollbox {
+  top: 5.8rem;
+}
+
+/* Sectiekoppen in de sidebar (Jaren, Reeksen, …) duidelijk onderscheiden. */
+.chapter .part-title,
+.chapter li.part-title {
+  color: var(--sidebar-fg);
+  font-weight: 600;
+  font-size: 1.05em;
+  letter-spacing: 0.03em;
+  margin-block-start: 1.15em;
+  margin-block-end: 0.2em;
+  padding-block-start: 0.7em;
+  border-block-start: 1px solid var(--sidebar-spacer);
+  list-style: none;
+}
+
+/* Actieve link: leisteen (licht) of jade-tint (donker), rustige gele markering. */
+.chapter li a.active {
+  font-weight: 600;
+  box-shadow: inset 3px 0 0 var(--firda-levendig-geel);
+}
+
+/* Gele lijn onder de menubalk (huisstijl), dun en altijd zichtbaar. */
+#mdbook-menu-bar,
+#mdbook-menu-bar.sticky,
+#mdbook-menu-bar.bordered {
+  border-block-end: 2px solid var(--firda-levendig-geel);
+}
+
+/* Alleen Firda licht, Firda donker en Auto in het themamenu. */
+#mdbook-theme-rust,
+#mdbook-theme-coal,
+#mdbook-theme-ayu {
+  display: none;
+}
+
+.content a {
+  text-decoration-color: color-mix(in srgb, var(--links) 45%, transparent);
+}
+
+.content pre {
+  border-radius: 0;
+  border-inline-start: 3px solid var(--sidebar-header-border-color);
+}
