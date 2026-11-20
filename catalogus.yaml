@@ -23,6 +23,9 @@ paginas:
     kinderen:
       - titel: Voorbeeldreeks
         bestand: reeksen/voorbeeld/index.md
+        kinderen:
+          - titel: Voorbeeldhandout
+            bestand: reeksen/voorbeeld/handout-voorbeeld.md
   - kop: Projectdocumentatie
     kinderen:
       - titel: Overzicht
