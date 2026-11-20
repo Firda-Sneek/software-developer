@@ -1,6 +1,8 @@
 [tools]
 python = "3.12"
 uv = "latest"
+java = "temurin-21"
+gradle = "9"
 mdbook = "0.5.4"
 
 [tasks.summary]
@@ -11,6 +13,23 @@ run = "uv run --script scripts/genereer-summary.py"
 description = "Download en subset de Firda-fonts naar theme/fonts/"
 run = "uv run --script scripts/fonts.py"
 
+[tasks.compile]
+description = "Compileer de voorbeeldprojecten in voorbeelden/"
+run = "gradle -p voorbeelden/voorbeeld/hello compileKotlin --no-daemon"
+
+[tasks.decks]
+description = "Bouw de sli.dev-decks naar book/slides/"
+run = "uv run --script scripts/bouw-decks.py"
+
 [tasks.qr]
 description = "Zet printfooter met QR in de gebouwde HTML en kopieer fonts"
 run = "uv run --script scripts/voeg-print-qr-toe.py"
+
+[tasks.build]
+description = "Volledige lokale site-build (fonts, summary, voorbeelden, mdBook, QR, decks)"
+depends = ["fonts", "summary", "compile"]
+run = [
+  "mdbook build",
+  "uv run --script scripts/voeg-print-qr-toe.py",
+  "uv run --script scripts/bouw-decks.py",
+]
