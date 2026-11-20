@@ -19,3 +19,8 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+Uitzonderingen (eigen licenties):
+- theme/fonts/: Work Sans en Libertinus Serif, SIL Open Font License 1.1, zie theme/fonts/OFL-*.txt
+- src/assets/firda-logo.svg: logo en merk van Firda; valt niet onder de MIT-licentie, zie src/assets/README.md

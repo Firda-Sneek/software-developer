@@ -12,3 +12,6 @@ build-dir = "book"
 [output.html]
 site-url = "/software-developer/"
 git-repository-url = "https://github.com/Firda-Sneek/software-developer"
+default-theme = "light"
+preferred-dark-theme = "coal"
+additional-css = ["theme/css/firda.css"]

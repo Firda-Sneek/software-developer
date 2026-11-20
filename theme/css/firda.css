@@ -1,0 +1,237 @@
+/* Firda-huisstijl bovenop de mdBook-chrome.
+ * Tokens uit template.firda-css (firda-template v0.3.1).
+ * Fonts: Work Sans en Libertinus Serif (SIL OFL 1.1), zelf gehost.
+ * Larken (commercieel) zit hier niet in.
+ */
+
+@font-face { font-family: "Work Sans"; font-style: normal; font-weight: 300; font-display: swap; src: url("../fonts/WorkSans-Light.woff2") format("woff2"); }
+@font-face { font-family: "Work Sans"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/WorkSans-Regular.woff2") format("woff2"); }
+@font-face { font-family: "Work Sans"; font-style: italic; font-weight: 400; font-display: swap; src: url("../fonts/WorkSans-Italic.woff2") format("woff2"); }
+@font-face { font-family: "Work Sans"; font-style: normal; font-weight: 500; font-display: swap; src: url("../fonts/WorkSans-Medium.woff2") format("woff2"); }
+@font-face { font-family: "Work Sans"; font-style: normal; font-weight: 600; font-display: swap; src: url("../fonts/WorkSans-SemiBold.woff2") format("woff2"); }
+@font-face { font-family: "Work Sans"; font-style: normal; font-weight: 700; font-display: swap; src: url("../fonts/WorkSans-Bold.woff2") format("woff2"); }
+@font-face { font-family: "Work Sans"; font-style: italic; font-weight: 700; font-display: swap; src: url("../fonts/WorkSans-BoldItalic.woff2") format("woff2"); }
+@font-face { font-family: "Libertinus Serif"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/LibertinusSerif-Regular.woff2") format("woff2"); }
+
+:root {
+  --firda-leisteen-groen: #3a5757;
+  --firda-morgendauw-blauw: #95cdea;
+  --firda-levendig-geel: #ffcd00;
+  --firda-kei-grijs: #7e9e9b;      /* alleen vlak/decoratie */
+  --firda-jade-grijsgroen: #bccec2; /* nooit als tekstkleur */
+  --firda-wit: #ffffff;
+  --firda-zowat-zwart: #3c3c3c;
+  --firda-font-kop: "Libertinus Serif", Constantia, Georgia, "Times New Roman", serif;
+  --firda-font-tekst: "Work Sans", "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  --firda-logo-breedte: clamp(7rem, 5rem + 8vw, 11rem);
+  --firda-schuin: 0.577;
+  --firda-focus-breedte: 3px;
+
+  --firda-achtergrond: #ffffff;
+  --firda-tekst: var(--firda-zowat-zwart);
+  --firda-kop: var(--firda-zowat-zwart);
+  --firda-accent: var(--firda-leisteen-groen);
+  --firda-accent-hover: #2c4545;
+  --firda-gedempt: #555555;
+  --firda-lijn: var(--firda-jade-grijsgroen);
+  --firda-logo-filter: none;
+  --firda-focus: var(--firda-leisteen-groen);
+  --firda-tabel-kop: var(--firda-jade-grijsgroen);
+  --firda-tabel-kop-tekst: var(--firda-zowat-zwart);
+  --firda-tabel-kolom: #d7e2da;
+  --firda-tabel-zebra: #f2f5f3;
+  --firda-code-bg: #f2f5f3;
+  --firda-sidebar-bg: #f2f5f3;
+  --firda-menu-bg: #ffffff;
+
+  --links: var(--firda-accent);
+  --links-underline: color-mix(in srgb, var(--firda-accent) 55%, transparent);
+  --icons: var(--firda-accent);
+  --icons-hover: var(--firda-accent-hover);
+  --theme-popup-bg: var(--firda-achtergrond);
+  --theme-popup-border: var(--firda-lijn);
+  --searchbar-bg: var(--firda-achtergrond);
+  --searchbar-border-color: var(--firda-lijn);
+  --searchbar-fg: var(--firda-tekst);
+  --searchbar-shadow: none;
+  --searchresults-header-fg: var(--firda-gedempt);
+  --searchresults-border-color: var(--firda-lijn);
+  --searchresults-li-bg: var(--firda-achtergrond);
+  --search-mark-bg: var(--firda-levendig-geel);
+}
+
+/* Donkere mdBook-thema's (coal, navy, ayu, rust) en Auto in donkere voorkeur. */
+html.coal, html.navy, html.ayu, html.rust {
+  --firda-achtergrond: #1b2626;
+  --firda-tekst: #f2f5f3;
+  --firda-kop: #f2f5f3;
+  --firda-accent: var(--firda-morgendauw-blauw);
+  --firda-accent-hover: #c4e4f4;
+  --firda-gedempt: #c9d6d0;
+  --firda-lijn: #3a5757;
+  --firda-logo-filter: brightness(0) invert(1);
+  --firda-focus: var(--firda-levendig-geel);
+  --firda-tabel-kop: var(--firda-leisteen-groen);
+  --firda-tabel-kop-tekst: #ffffff;
+  --firda-tabel-kolom: #2a3b3b;
+  --firda-tabel-zebra: #223030;
+  --firda-code-bg: #243232;
+  --firda-sidebar-bg: #162020;
+  --firda-menu-bg: #1b2626;
+  --links: var(--firda-accent);
+  --links-underline: color-mix(in srgb, var(--firda-accent) 55%, transparent);
+  --icons: var(--firda-accent);
+  --icons-hover: var(--firda-accent-hover);
+}
+
+html {
+  font-family: var(--firda-font-tekst);
+  color: var(--firda-tekst);
+  background: var(--firda-achtergrond);
+}
+
+body, .content, .sidebar, .menu-bar, .nav-wide-wrapper, .page {
+  font-family: var(--firda-font-tekst);
+  color: var(--firda-tekst);
+}
+
+.page, #mdbook-page-wrapper, .content, main {
+  background: var(--firda-achtergrond);
+}
+
+/* Logo op een jade driehoek (60°), zoals de huisstijl. */
+.page {
+  /* mdBook trekt .page een menu-balk omhoog; zonder dit valt het logo buiten beeld. */
+  padding-block-start: var(--menu-bar-height);
+}
+.firda-top {
+  position: relative;
+  background: var(--firda-menu-bg);
+  padding: 0.6rem 1rem 0.4rem 1.2rem;
+  border-bottom: none;
+  overflow: hidden;
+  min-height: 3.4rem;
+}
+.firda-top::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: calc(var(--firda-logo-breedte) + 2.4rem);
+  height: 100%;
+  background: var(--firda-jade-grijsgroen);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 100% * var(--firda-schuin)) 100%, 0 100%);
+}
+html.coal .firda-top::before,
+html.navy .firda-top::before,
+html.ayu .firda-top::before,
+html.rust .firda-top::before {
+  background: var(--firda-leisteen-groen);
+}
+.firda-logo {
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+}
+.firda-logo img {
+  display: block;
+  width: var(--firda-logo-breedte);
+  height: auto;
+  filter: var(--firda-logo-filter);
+}
+
+#mdbook-menu-bar,
+.menu-bar {
+  background: var(--firda-menu-bg);
+  border-bottom: 3px solid var(--firda-levendig-geel);
+  color: var(--firda-tekst);
+}
+#mdbook-menu-bar.bordered {
+  border-block-end-color: var(--firda-levendig-geel);
+}
+.menu-title {
+  font-family: var(--firda-font-kop);
+  font-weight: 400;
+  color: var(--firda-kop);
+}
+
+.sidebar {
+  background: var(--firda-sidebar-bg);
+  color: var(--firda-tekst);
+  border-right: 1px solid var(--firda-lijn);
+}
+.sidebar a, .chapter a {
+  color: var(--firda-accent);
+}
+.sidebar a:hover, .chapter a:hover {
+  color: var(--firda-accent-hover);
+}
+.chapter li.chapter-item.expanded > div a,
+.chapter li.active > a,
+.chapter .active {
+  color: var(--firda-accent);
+  font-weight: 600;
+}
+
+.content {
+  max-width: 46rem;
+}
+.content h1, .content h2 {
+  font-family: var(--firda-font-kop);
+  font-weight: 400;
+  color: var(--firda-kop);
+}
+.content h3, .content h4, .content h5, .content h6 {
+  font-family: var(--firda-font-tekst);
+  font-weight: 600;
+  color: var(--firda-accent);
+}
+.content a {
+  color: var(--firda-accent);
+  text-decoration: underline;
+}
+.content a:hover {
+  color: var(--firda-accent-hover);
+}
+.content mark {
+  background: var(--firda-levendig-geel);
+  color: var(--firda-zowat-zwart);
+  font-weight: 500;
+  padding: 0 0.15em;
+}
+.content blockquote {
+  font-family: var(--firda-font-kop);
+  color: var(--firda-accent);
+  border-left: 4px solid var(--firda-levendig-geel);
+  background: transparent;
+}
+.content table thead th {
+  background: var(--firda-tabel-kop);
+  color: var(--firda-tabel-kop-tekst);
+  font-weight: 600;
+  border: none;
+}
+.content table tbody tr:nth-child(even) td {
+  background: var(--firda-tabel-zebra);
+}
+.content table tbody th {
+  background: var(--firda-tabel-kolom);
+}
+.content :not(pre) > code,
+.content pre {
+  background: var(--firda-code-bg);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+.content pre {
+  border-left: 4px solid var(--firda-leisteen-groen);
+  border-radius: 0;
+}
+.content hr {
+  border: none;
+  border-top: 1px solid var(--firda-lijn);
+}
+
+:focus-visible {
+  outline: var(--firda-focus-breedte) solid var(--firda-focus);
+  outline-offset: 2px;
+}
