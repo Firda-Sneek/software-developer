@@ -1,8 +1,6 @@
 [tools]
-python = "3.12"
-uv = "latest"
 mdbook = "0.5.4"
 
-[tasks.summary]
-description = "Genereer src/SUMMARY.md uit catalogus.yaml"
-run = "uv run --script scripts/genereer-summary.py"
+[tasks.paginas]
+description = "Maak ontbrekende pagina's uit src/SUMMARY.md en bouw de site"
+run = "mdbook build"

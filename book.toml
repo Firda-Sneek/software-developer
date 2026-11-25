@@ -6,7 +6,8 @@ language = "nl"
 src = "src"
 
 [build]
-create-missing = false
+# Ontbrekende pagina's uit src/SUMMARY.md worden bij de build aangemaakt.
+create-missing = true
 build-dir = "book"
 
 [output.html]

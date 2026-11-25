@@ -15,9 +15,9 @@ Installeer tools met `mise install` (Python, uv, Java 21, Gradle, mdBook 0.5.4) 
 | Task | Wat het doet |
 | --- | --- |
 | `mise run fonts` | Downloadt en subset de Firda-fonts naar `theme/fonts/` |
-| `mise run summary` | Genereert `src/SUMMARY.md` uit `catalogus.yaml` |
+| `mise run paginas` | Maakt ontbrekende Markdown-pagina's uit `src/SUMMARY.md` en bouwt de site |
 | `mise run compile` | Compileert de voorbeeldprojecten in `voorbeelden/` |
-| `mise run build` | Volledige lokale site: fonts, summary, voorbeelden, mdBook, print-QR en decks |
+| `mise run build` | Volledige lokale site: fonts, voorbeelden, mdBook, print-QR en decks |
 | `mise run qr` | Zet de printfooter met QR in de gebouwde HTML |
 | `mise run decks` | Bouwt de sli.dev-decks naar `book/slides/` |
 
@@ -27,7 +27,7 @@ Hulpscripts: Python met PEP 723, `uv run --script`. Geen `.sh` of `.ps1`.
 
 ## Structuur
 
-- `catalogus.yaml` + `scripts/genereer-summary.py`: bron voor `src/SUMMARY.md` (niet met de hand onderhouden).
+- `src/SUMMARY.md`: bron van de structuur, met de hand. Een nieuwe pagina hoort daar eerst. Ontbreekt het bestand, dan maakt mdBook het bij de build (`create-missing = true`).
 - `src/`: mdBook-bron (jaren, reeksen, projectopdrachten, projectdocumentatie).
 - `theme/`: Firda-thema en gegenereerde fonts.
 - `slides/` en scripts voor sli.dev-decks.
@@ -46,7 +46,6 @@ Docentmateriaal hoort in de privé-repo [software-developer.docent](https://gith
 ## Niet aanraken
 
 - Gegenereerde output: `book/`, `node_modules/`, `.gradle/`, `**/build/`, gegenereerde `*.woff2`.
-- `src/SUMMARY.md` alleen via `mise run summary` bijwerken.
 - De inactieve Pages-deploy-job.
 - Echte leerlinggegevens: nooit in de repo, testdata of screenshots. Alleen fictieve gegevens.
 - Nooit naar Eduarte schrijven.
