@@ -4,6 +4,8 @@ uv = "latest"
 java = "temurin-21"
 gradle = "9"
 mdbook = "0.5.4"
+rust = "1.94"
+"github:fornwall/rust-script" = "0.36.0"
 
 [tasks.summary]
 description = "Genereer src/SUMMARY.md uit catalogus.yaml"
@@ -12,6 +14,18 @@ run = "uv run --script scripts/genereer-summary.py"
 [tasks.fonts]
 description = "Download en subset de Firda-fonts naar theme/fonts/"
 run = "uv run --script scripts/fonts.py"
+
+[tasks.check-includes]
+description = "Controleer alle region-verwijzingen in src/ en slides/ (ook in de pre-commit hook)"
+run = "rust-script scripts/regions.rs check"
+
+[tasks.test-scripts]
+description = "Draai de unittests van scripts/regions.rs"
+run = "rust-script --test scripts/regions.rs"
+
+[tasks.setup]
+description = "Zet de pre-commit hook aan (git config core.hooksPath .githooks)"
+run = "git config core.hooksPath .githooks"
 
 [tasks.compile]
 description = "Compileer de voorbeeldprojecten in voorbeelden/"
@@ -26,8 +40,8 @@ description = "Zet printfooter met QR in de gebouwde HTML en kopieer fonts"
 run = "uv run --script scripts/voeg-print-qr-toe.py"
 
 [tasks.build]
-description = "Volledige lokale site-build (fonts, summary, voorbeelden, mdBook, QR, decks)"
-depends = ["fonts", "summary", "compile"]
+description = "Volledige lokale site-build (fonts, summary, voorbeelden, include-check, mdBook, QR, decks)"
+depends = ["fonts", "summary", "compile", "check-includes"]
 run = [
   "mdbook build",
   "uv run --script scripts/voeg-print-qr-toe.py",
