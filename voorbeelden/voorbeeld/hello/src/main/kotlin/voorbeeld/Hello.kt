@@ -1,9 +1,9 @@
 package voorbeeld
 
-// ANCHOR: begroeting
-fun begroeting(naam: String): String = "Hallo, $naam"
-// ANCHOR_END: begroeting
+// #region greeting
+fun greeting(name: String): String = "Hello, $name"
+// #endregion greeting
 
 fun main() {
-    println(begroeting("Firda"))
+    println(greeting("Firda"))
 }
