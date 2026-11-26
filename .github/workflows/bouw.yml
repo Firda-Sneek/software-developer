@@ -18,7 +18,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Installeer mise-tools (python, uv, java, gradle, mdBook 0.5.4)
+      - name: Installeer mise-tools (python, uv, java, gradle, mdBook 0.5.4, rust, rust-script)
         uses: jdx/mise-action@v5
         with:
           install: true
@@ -33,7 +33,10 @@ jobs:
       - name: Installeer npm-pakketten
         run: npm ci
 
-      - name: Fonts, summary, voorbeelden, mdBook, QR en decks
+      - name: Unittests van de hulpscripts (rust-script)
+        run: mise run test-scripts
+
+      - name: Fonts, summary, voorbeelden, include-check, mdBook, QR en decks
         run: mise run build
 
       - name: Upload Pages-artifact (alleen book/)
