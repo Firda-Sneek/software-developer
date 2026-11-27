@@ -1,0 +1,9 @@
+{
+  "name": "software-developer",
+  "private": true,
+  "description": "Build van de sli.dev-decks voor de studentensite",
+  "devDependencies": {
+    "@slidev/cli": "53.1.0",
+    "@slidev/theme-default": "0.25.0"
+  }
+}
