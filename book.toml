@@ -6,7 +6,8 @@ language = "nl"
 src = "src"
 
 [build]
-create-missing = false
+# Ontbrekende pagina's uit src/SUMMARY.md worden bij de build aangemaakt.
+create-missing = true
 build-dir = "book"
 
 # Vult {{#include pad:regionnaam}} uit `#region`-markers in de bronbestanden.
@@ -21,6 +22,8 @@ git-repository-url = "https://github.com/Firda-Sneek/software-developer"
 default-theme = "light"
 preferred-dark-theme = "navy"
 no-section-label = true
+# Vaste bestandsnamen: firda.css verwijst naar de fonts in book/fonts/ zonder hash.
+hash-files = false
 additional-css = ["theme/css/firda.css", "theme/css/print.css"]
 additional-js = ["theme/firda.js", "theme/print-datum.js"]
 

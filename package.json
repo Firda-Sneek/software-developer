@@ -5,8 +5,5 @@
   "devDependencies": {
     "@slidev/cli": "53.1.0",
     "@slidev/theme-default": "0.25.0"
-  },
-  "scripts": {
-    "decks": "uv run --script scripts/bouw-decks.py"
   }
 }

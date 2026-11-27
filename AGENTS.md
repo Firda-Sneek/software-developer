@@ -4,40 +4,39 @@ Korte instructie voor AI-codeeragents in deze repository.
 
 Openbare studentensite van de opleiding Software Development (Firda Sneek): lessen, opdrachten, projectdocumentatie en voorbeeldcode. Gebouwd met mdBook en sli.dev, in de Firda-huisstijl.
 
-Op `main` staat nog het skelet (README, licentie, CODEOWNERS). De build, het thema, de print-CSS, de voorbeelddecks en CI zitten in de open PR-stack #9 tot en met #13. De commando's hieronder gelden zodra die stack op `main` staat; tot die tijd werk je op die branches of erna.
+Op `main` staat nog het skelet (README, licentie, CODEOWNERS). De build, het thema, de print-CSS, de voorbeelddecks en CI zitten in de open PR-stack #10 tot en met #13 (#9 is gemerged). De commando's hieronder gelden zodra die stack op `main` staat; tot die tijd werk je op die branches of erna.
 
 Beoogde URL: <https://firda-sneek.github.io/software-developer/>. GitHub Pages gaat pas aan na expliciete ok van Sven.
 
 ## Commando's
 
-Installeer tools met `mise install` (Python, uv, Java 21, Gradle, mdBook 0.5.4, Rust en rust-script) en daarna `npm ci` voor de decks. Zet daarna eenmalig de pre-commit hook aan met `mise run setup`.
+Installeer tools met `mise install` (Java 21, Gradle, mdBook 0.5.4, Rust en rust-script) en daarna `npm ci` voor de decks. Zet daarna eenmalig de pre-commit hook aan met `mise run setup`.
 
 | Task | Wat het doet |
 | --- | --- |
-| `mise run fonts` | Downloadt en subset de Firda-fonts naar `theme/fonts/` |
-| `mise run summary` | Genereert `src/SUMMARY.md` uit `catalogus.yaml` |
+| `mise run paginas` | Maakt ontbrekende Markdown-pagina's uit `src/SUMMARY.md` en bouwt de site |
 | `mise run compile` | Compileert de voorbeeldprojecten in `voorbeelden/` |
-| `mise run build` | Volledige lokale site: fonts, summary, voorbeelden, include-check, mdBook, print-QR en decks |
-| `mise run qr` | Zet de printfooter met QR in de gebouwde HTML |
-| `mise run decks` | Bouwt de sli.dev-decks naar `book/slides/` |
+| `mise run build` | Volledige lokale site: voorbeelden, include-check, mdBook, print-QR en decks |
+| `mise run qr` | Zet de printfooter met QR in de gebouwde HTML (`scripts/print-qr.rs`) |
+| `mise run decks` | Bouwt de sli.dev-decks naar `book/slides/` (roept `slidev build` direct aan; één regel per deck in `mise.toml`) |
 | `mise run check-includes` | Controleert alle `#region`-verwijzingen in `src/` en `slides/` (exit 1 bij een fout) |
-| `mise run test-scripts` | Draait de unittests van `scripts/regions.rs` |
+| `mise run test-scripts` | Draait de unittests van de rust-scripts (`regions.rs`, `print-qr.rs`) |
 | `mise run setup` | Zet de pre-commit hook aan (`git config core.hooksPath .githooks`) |
 
 CI (`.github/workflows/bouw.yml`, in PR #13) draait `mise run build` en uploadt `book/` als Pages-artifact. De deploy-job staat bewust op `if: false`. Zet die niet zelf aan en zet Pages niet zelf aan.
 
-Hulpscripts: nieuwe tools zijn `rust-script`-bestanden (`.rs`, afhankelijkheden in het `cargo`-blok in de doc-comment). De bestaande Python-scripts (PEP 723, `uv run --script`) blijven voorlopig staan. Geen `.sh` of `.ps1`.
+Hulpscripts: alleen waar mdBook of mise het niet zelf kan, en dan als `rust-script`-bestand (`.rs`, afhankelijkheden in het `cargo`-blok in de doc-comment). Geen Python, geen `.sh` of `.ps1`. Blijf zo dicht mogelijk bij gewone mdBook: eigen tooling is een uitzondering. De mdBook-preprocessor en include-check voor regions (`scripts/regions.rs`) en de printfooter (`scripts/print-qr.rs`) zijn de enige uitzonderingen.
 
 De include-check draait ook in `mise run build`, in CI en bij elke `git commit` (hook in `.githooks/pre-commit`). Omzeil hem niet met `--no-verify`.
 
 ## Structuur
 
-- `catalogus.yaml` + `scripts/genereer-summary.py`: bron voor `src/SUMMARY.md` (niet met de hand onderhouden).
+- `src/SUMMARY.md`: bron van de structuur, met de hand. Een nieuwe pagina hoort daar eerst. Ontbreekt het bestand, dan maakt mdBook het bij de build (`create-missing = true`).
 - `src/`: mdBook-bron (jaren, reeksen, projectopdrachten, projectdocumentatie).
-- `theme/`: Firda-thema en gegenereerde fonts.
-- `slides/` en scripts voor sli.dev-decks.
+- `theme/`: Firda-thema en de fonts (WOFF2 staan in git; mdBook neemt `theme/fonts/` zelf mee, met `hash-files = false`).
+- `slides/`: sli.dev-decks (gebouwd met de mise-taak `decks`).
+- `scripts/`: rust-scripts: `regions.rs` (mdBook-preprocessor en include-check voor regions) en `print-qr.rs` (printfooter).
 - `voorbeelden/`: voorbeeldprojecten (o.a. Kotlin). Alle code die in pagina's of dia's komt staat hier, nooit inline in Markdown.
-- `scripts/regions.rs`: mdBook-preprocessor en include-check voor regions.
 - `docs/docent/werkwijze.md`: de werkwijze voor Sven. Enige bron; niet op de site.
 - `.agents/skills/software-developer/SKILL.md`: stappenplannen voor terugkerend werk. Lees die voordat je aan lessen, voorbeeldcode of de build werkt.
 - `.githooks/`: de pre-commit hook.
@@ -47,7 +46,7 @@ Docentmateriaal hoort in de privé-repo [software-developer.docent](https://gith
 
 ## Code delen tussen handout en deck
 
-Voorbeeldcode staat in een bronbestand onder `voorbeelden/` en markeert wat getoond mag worden met `// #region naam` … `// #endregion naam` (Python: `# region naam` … `# endregion naam`). Regionamen zijn Engels en uniek per bestand, het einde draagt altijd de naam.
+Voorbeeldcode staat in een bronbestand onder `voorbeelden/` en markeert wat getoond mag worden met `// #region naam` … `// #endregion naam` (Python-voorbeelden in de les: `# region naam` … `# endregion naam`). Regionamen zijn Engels en uniek per bestand, het einde draagt altijd de naam.
 
 - mdBook: `{{#include pad:naam}}` (pad relatief aan de pagina).
 - Slidev: `<<< pad#naam taal` (pad relatief aan het deck, niet `@/`).
@@ -65,8 +64,7 @@ Include nooit een heel bestand uit `voorbeelden/`. Details, voorbeelden en foutm
 ## Niet aanraken
 
 - De check in `scripts/regions.rs` uitzetten of omzeilen om een kapotte verwijzing te verbergen. Los de verwijzing op.
-- Gegenereerde output: `book/`, `node_modules/`, `.gradle/`, `**/build/`, gegenereerde `*.woff2`.
-- `src/SUMMARY.md` alleen via `mise run summary` bijwerken.
+- Gegenereerde output: `book/`, `node_modules/`, `.gradle/`, `**/build/`.
 - De inactieve Pages-deploy-job.
 - Echte leerlinggegevens: nooit in de repo, testdata of screenshots. Alleen fictieve gegevens.
 - Nooit naar Eduarte schrijven.

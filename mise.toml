@@ -1,27 +1,21 @@
 [tools]
-python = "3.12"
-uv = "latest"
 java = "temurin-21"
 gradle = "9"
 mdbook = "0.5.4"
 rust = "1.94"
 "github:fornwall/rust-script" = "0.36.0"
 
-[tasks.summary]
-description = "Genereer src/SUMMARY.md uit catalogus.yaml"
-run = "uv run --script scripts/genereer-summary.py"
-
-[tasks.fonts]
-description = "Download en subset de Firda-fonts naar theme/fonts/"
-run = "uv run --script scripts/fonts.py"
+[tasks.paginas]
+description = "Maak ontbrekende pagina's uit src/SUMMARY.md en bouw de site"
+run = "mdbook build"
 
 [tasks.check-includes]
 description = "Controleer alle region-verwijzingen in src/ en slides/ (ook in de pre-commit hook)"
 run = "rust-script scripts/regions.rs check"
 
 [tasks.test-scripts]
-description = "Draai de unittests van scripts/regions.rs"
-run = "rust-script --test scripts/regions.rs"
+description = "Draai de unittests van de rust-scripts"
+run = ["rust-script --test scripts/regions.rs", "rust-script --test scripts/print-qr.rs"]
 
 [tasks.setup]
 description = "Zet de pre-commit hook aan (git config core.hooksPath .githooks)"
@@ -31,19 +25,23 @@ run = "git config core.hooksPath .githooks"
 description = "Compileer de voorbeeldprojecten in voorbeelden/"
 run = "gradle -p voorbeelden/voorbeeld/hello compileKotlin --no-daemon"
 
+[tasks.qr]
+description = "Zet in elke gebouwde pagina een printfooter met QR (na mdbook build)"
+run = "rust-script scripts/print-qr.rs"
+
+# Eén regel per deck. --out is relatief aan het deck (Slidev lost het zo op), --base
+# is het pad op de site. Nieuw deck: kopieer de regel en pas naam en mappen aan.
 [tasks.decks]
 description = "Bouw de sli.dev-decks naar book/slides/"
-run = "uv run --script scripts/bouw-decks.py"
-
-[tasks.qr]
-description = "Zet printfooter met QR in de gebouwde HTML en kopieer fonts"
-run = "uv run --script scripts/voeg-print-qr-toe.py"
+run = [
+  "npx --no-install slidev build slides/voorbeeld/dummy.md --base /software-developer/slides/voorbeeld/dummy/ --out ../../book/slides/voorbeeld/dummy --without-notes",
+]
 
 [tasks.build]
-description = "Volledige lokale site-build (fonts, summary, voorbeelden, include-check, mdBook, QR, decks)"
-depends = ["fonts", "summary", "compile", "check-includes"]
+description = "Volledige lokale site-build (voorbeelden, include-check, mdBook, QR, decks)"
+depends = ["compile", "check-includes"]
 run = [
   "mdbook build",
-  "uv run --script scripts/voeg-print-qr-toe.py",
-  "uv run --script scripts/bouw-decks.py",
+  "rust-script scripts/print-qr.rs",
+  { task = "decks" },
 ]
