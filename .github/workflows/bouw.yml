@@ -1,0 +1,64 @@
+name: Bouw
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# De repo-standaard voor GITHUB_TOKEN is read-only; rechten staan hier per job.
+
+jobs:
+  bouw:
+    name: Site en voorbeelden
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Installeer mise-tools (java, gradle, mdBook 0.5.4, rust, rust-script)
+        uses: jdx/mise-action@v5
+        with:
+          install: true
+          cache: true
+
+      - name: Installeer Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "lts/*"
+          cache: npm
+
+      - name: Installeer npm-pakketten
+        run: npm ci
+
+      - name: Unittests van de rust-scripts
+        run: mise run test-scripts
+
+      - name: Voorbeelden, mdBook, QR en decks
+        run: mise run build
+
+      - name: Upload Pages-artifact (alleen book/)
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: book
+
+  deploy:
+    # GitHub Pages is nog niet aangezet. Sven moet in de repo-instellingen
+    # Pages aanzetten (bron: GitHub Actions) en daarna deze `if: false`
+    # verwijderen. Dit job niet zelf aanzetten.
+    if: false
+    name: Deploy naar Pages (inactief)
+    needs: bouw
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v5
