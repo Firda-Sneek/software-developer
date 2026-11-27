@@ -1,0 +1,86 @@
+/* Printstijl: papier wijst naar de canonieke pagina op de studentensite.
+ * De footer is alleen zichtbaar bij printen / in het afdrukvoorbeeld.
+ */
+
+@media print {
+  .sidebar,
+  .menu-bar,
+  .firda-top,
+  .nav-wide-wrapper,
+  .nav-chapters,
+  #mdbook-sidebar-toggle-anchor,
+  #mdbook-menu-bar-hover-placeholder,
+  .mobile-nav-chapters,
+  button,
+  .right-buttons,
+  .left-buttons {
+    display: none !important;
+  }
+
+  .page, .content, #mdbook-page-wrapper, #mdbook-content, body, html {
+    background: #fff !important;
+    color: #3c3c3c !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+  }
+
+  .content {
+    font-family: "Work Sans", "Segoe UI", system-ui, sans-serif;
+    font-size: 11pt;
+    line-height: 1.5;
+  }
+
+  .content a[href]::after {
+    content: none;
+  }
+
+  #firda-print-footer {
+    display: block !important;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.4rem 0 0;
+    border-top: 2px solid #bccec2;
+    background: #fff;
+    color: #3c3c3c;
+    font-family: "Work Sans", "Segoe UI", system-ui, sans-serif;
+    font-size: 8pt;
+    line-height: 1.35;
+  }
+
+  #firda-print-footer .firda-print-inner {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  #firda-print-footer .firda-print-qr {
+    flex: 0 0 auto;
+    width: 2.6cm;
+    height: 2.6cm;
+  }
+
+  #firda-print-footer .firda-print-qr svg {
+    width: 2.6cm;
+    height: 2.6cm;
+    display: block;
+  }
+
+  #firda-print-footer p {
+    margin: 0;
+  }
+
+  body {
+    padding-bottom: 3.4cm !important;
+  }
+}
+
+@media screen {
+  #firda-print-footer {
+    display: none;
+  }
+}
