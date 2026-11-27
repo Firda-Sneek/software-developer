@@ -1,6 +1,20 @@
 [tools]
 mdbook = "0.5.4"
+rust = "1.94"
+"github:fornwall/rust-script" = "0.36.0"
 
 [tasks.paginas]
 description = "Maak ontbrekende pagina's uit src/SUMMARY.md en bouw de site"
 run = "mdbook build"
+
+[tasks.qr]
+description = "Zet in elke gebouwde pagina een printfooter met QR (na mdbook build)"
+run = "rust-script scripts/print-qr.rs"
+
+[tasks.test-scripts]
+description = "Draai de unittests van de rust-scripts"
+run = "rust-script --test scripts/print-qr.rs"
+
+[tasks.build]
+description = "Bouw de site met printfooter (mdBook, daarna QR)"
+run = ["mdbook build", "rust-script scripts/print-qr.rs"]
