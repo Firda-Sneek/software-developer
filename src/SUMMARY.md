@@ -13,6 +13,7 @@
 # Reeksen
 
 - [Voorbeeldreeks](reeksen/voorbeeld/index.md)
+  - [Voorbeeldhandout](reeksen/voorbeeld/handout-voorbeeld.md)
 
 # Projectdocumentatie
 
