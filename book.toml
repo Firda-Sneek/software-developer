@@ -1,0 +1,15 @@
+[book]
+title = "Software Developer"
+authors = ["Sven Imholz"]
+description = "Studentensite van de opleiding Software Development, Firda Sneek"
+language = "nl"
+src = "src"
+
+[build]
+# Ontbrekende pagina's uit src/SUMMARY.md worden bij de build aangemaakt.
+create-missing = true
+build-dir = "book"
+
+[output.html]
+site-url = "/software-developer/"
+git-repository-url = "https://github.com/Firda-Sneek/software-developer"

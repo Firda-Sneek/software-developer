@@ -1,0 +1,6 @@
+[tools]
+mdbook = "0.5.4"
+
+[tasks.paginas]
+description = "Maak ontbrekende pagina's uit src/SUMMARY.md en bouw de site"
+run = "mdbook build"
