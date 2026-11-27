@@ -11,16 +11,15 @@ Stappenplan voor terugkerend werk in deze repo. De uitleg en de reden achter de 
 
 - Lesinhoud verzin je niet. Stem af met Tess of Sven.
 - Geen leerlinggegevens, nooit. Alleen fictieve data.
-- Code, regionamen en identifiers in het Engels. Standaardtaal voor nieuwe code en scripts is Rust (JS alleen als dat logischer is). Losse hulptools zijn `rust-script`-bestanden.
+- Code, regionamen en identifiers in het Engels. Standaardtaal voor nieuwe code en scripts is Rust (JS alleen als dat logischer is). Losse hulptools zijn `rust-script`-bestanden, alleen als mdBook of mise het niet zelf kan. Geen Python of `uv`.
 - Draai commando's via `mise run …` vanuit de repowortel. Eerst `mise install` en `npm ci`.
 - Hook aan? Controleer met `git config core.hooksPath`. Staat die niet op `.githooks`, draai `mise run setup`.
 
 ## Workflow A: een reeks of pagina toevoegen
 
 1. Maak `src/reeksen/<reeks>/` met `index.md` en de pagina's. Geen YAML-frontmatter in de Markdown.
-2. Voeg de pagina's toe aan `catalogus.yaml`.
-3. `mise run summary` (nooit `src/SUMMARY.md` met de hand).
-4. `mise run build` en kijk of de pagina in `book/` staat.
+2. Zet de pagina's met de hand in `src/SUMMARY.md` (zoals mdBook het bedoelt). Ontbreekt een bestand, dan maakt mdBook het bij de build.
+3. `mise run build` en kijk of de pagina in `book/` staat, met dezelfde navigatie als in `SUMMARY.md`.
 
 ## Workflow B: voorbeeldcode in een pagina én een deck
 
@@ -33,6 +32,7 @@ Code staat nooit inline in Markdown. Altijd een bronbestand met een region.
 3. Pagina (pad relatief aan de pagina), binnen een codeblok met de juiste taal:
    `{{#include ../../../voorbeelden/<reeks>/<project>/src/main/kotlin/…/Bestand.kt:greeting}}`
 4. Deck (pad relatief aan het deck, niet `@/`): `<<< ../../voorbeelden/<reeks>/<project>/…/Bestand.kt#greeting kotlin`
+   Nieuw deck? Maak `slides/<reeks>/<naam>.md` en kopieer de regel in de taak `decks` in `mise.toml` (pas naam, `--base` en `--out` aan).
 5. `mise run compile` (moet slagen), `mise run check-includes`, `mise run build`.
 6. Controleer in `book/<pagina>.html` en `book/slides/…` dat alleen het fragment staat: geen `#region`-regels, geen leeg blok.
 
@@ -71,4 +71,4 @@ Geen `--no-verify`. Los de fout op.
 
 ## Niet aanraken
 
-`book/`, `node_modules/`, `.gradle/`, `**/build/`, `src/SUMMARY.md` (alleen via `mise run summary`), de inactieve Pages-deploy-job. Uitwerkingen en lesverloop horen in de privé-repo `software-developer.docent`; link daar niet naar vanaf de site.
+`book/`, `node_modules/`, `.gradle/`, `**/build/`, de inactieve Pages-deploy-job. Uitwerkingen en lesverloop horen in de privé-repo `software-developer.docent`; link daar niet naar vanaf de site.

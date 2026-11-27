@@ -2,17 +2,17 @@
 
 Dit document is voor Sven (en voor agents die hier meewerken). Het is de enige bron voor hoe we in deze repo werken: `AGENTS.md` en de skill (`.agents/skills/software-developer/SKILL.md`) verwijzen hiernaar en herhalen het niet.
 
-Het staat bewust **niet** op de studentensite: het ligt buiten `src/` en staat niet in `catalogus.yaml`. Uitwerkingen, lesverloop en andere docentnotities horen in de privé-repo `software-developer.docent`, niet hier.
+Het staat bewust **niet** op de studentensite: het ligt buiten `src/` en staat niet in `src/SUMMARY.md`. Uitwerkingen, lesverloop en andere docentnotities horen in de privé-repo `software-developer.docent`, niet hier.
 
 ## 1. De repo in vogelvlucht
 
 | Map of bestand | Wat |
 | --- | --- |
-| `src/` | De lespagina's (Markdown, mdBook). `src/SUMMARY.md` wordt gegenereerd uit `catalogus.yaml`. |
-| `slides/` | De Slidev-decks (Markdown). |
+| `src/` | De lespagina's (Markdown, mdBook). `src/SUMMARY.md` is de inhoudsopgave en wordt met de hand onderhouden, zoals mdBook het bedoelt. |
+| `slides/` | De Slidev-decks (Markdown). Elk deck heeft een regel in de mise-taak `decks`. |
 | `voorbeelden/` | De voorbeeldcode: echte, compileerbare projecten. Hier woont alle code die in pagina's en dia's komt. |
-| `scripts/` | Hulpscripts (zie paragraaf 6). |
-| `theme/` | Firda-thema en fonts. |
+| `scripts/` | Rust-scripts: `regions.rs` (regions) en `print-qr.rs` (printfooter). Zie paragraaf 6. |
+| `theme/` | Firda-thema en de fonts (WOFF2 staan in git; mdBook neemt ze zelf mee). |
 | `docs/docent/` | Dit document. Niet op de site. |
 | `.agents/skills/` | De repo-skill voor agents. |
 | `.githooks/` | De pre-commit hook. |
@@ -113,18 +113,27 @@ De unittests van het script draai je met `mise run test-scripts`.
 ## 5. Een nieuwe reeks of les toevoegen
 
 1. Stem de inhoud af met Tess.
-2. Maak de map `src/reeksen/<reeks>/` met een `index.md` en de pagina's. Zet ze in `catalogus.yaml` en draai `mise run summary`. Pas `src/SUMMARY.md` nooit met de hand aan.
+2. Maak de map `src/reeksen/<reeks>/` met een `index.md` en de pagina's. Zet ze met de hand in `src/SUMMARY.md`. Ontbreekt een bestand, dan maakt mdBook het bij de build (`create-missing = true`; `mise run paginas`).
 3. Maak (of breid uit) het voorbeeldproject onder `voorbeelden/<reeks>/<project>/` en zet `#region`-markers om de stukjes die je laat zien. `mise run compile` moet blijven slagen.
 4. Verwijs in de pagina met `{{#include …:naam}}` en in het deck met `<<< …#naam taal`. Zelfde region, geen kopie.
-5. Deck nodig? Zet het in `slides/<reeks>/<naam>.md` en link ernaar vanaf de reekspagina.
+5. Deck nodig? Zet het in `slides/<reeks>/<naam>.md`, voeg een regel toe in de taak `decks` in `mise.toml` (kopieer de bestaande en pas naam en mappen aan) en link ernaar vanaf de reekspagina.
 6. Draai `mise run build`. Kijk in `book/` en `book/slides/` of het fragment klopt, zonder markerregels en zonder lege blokken.
 7. Commit met `Refs #n` en `Signed-off-by`, open een PR en vraag review.
 
-## 6. Welke taal voor code en scripts
+## 6. Zo dicht mogelijk bij gewone mdBook
+
+We gebruiken wat mdBook en mise zelf kunnen en schrijven alleen tooling waar dat echt niet anders kan:
+
+- **Inhoudsopgave:** `src/SUMMARY.md` met de hand, `create-missing = true` in `book.toml`. Geen generator.
+- **Fonts:** de WOFF2-bestanden staan in `theme/fonts/`; mdBook kopieert ze naar `book/fonts/`. `hash-files = false` in `book.toml` houdt de bestandsnamen vast, zodat `firda.css` ernaar kan verwijzen. Herkomst en SHA-256's staan in `theme/fonts/README.md`.
+- **Decks:** geen script, maar de mise-taak `decks` die `slidev build` aanroept, één regel per deck.
+- **Eigen tooling** is er alleen voor wat mdBook niet kan: `scripts/regions.rs` (preprocessor en include-check) en `scripts/print-qr.rs` (printfooter met QR).
+
+Welke taal:
 
 - **Standaard is Rust.** Alleen als JavaScript de logische keuze is (bijvoorbeeld in de browser of bij Slidev) gebruiken we JS. De lesvoorbeelden volgen uiteraard de taal van de les.
 - **Losse hulptools** schrijven we als `rust-script`-bestand (`.rs`, met de afhankelijkheden in een `cargo`-blok in de doc-comment), tot `cargo script` stabiel is. `rust-script` en Rust komen via mise (`mise install`).
-- **Bestaande Python-scripts** (`scripts/*.py`: summary, fonts, decks, QR) blijven voorlopig staan en draaien met `uv run --script`. Ze overzetten naar rust-script is een mogelijk vervolg; dat doen we niet in dezelfde PR als iets anders.
+- **Geen Python-tooling meer** in deze repo (ook geen `uv`). Geen `.sh` of `.ps1`.
 - Code, regionamen en identifiers zijn Engels. Meldingen en documentatie zijn Nederlands.
 
 ## 7. Als er iets misgaat
