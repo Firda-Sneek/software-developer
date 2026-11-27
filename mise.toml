@@ -1,35 +1,39 @@
 [tools]
-python = "3.12"
-uv = "latest"
 java = "temurin-21"
 gradle = "9"
 mdbook = "0.5.4"
+rust = "1.94"
+"github:fornwall/rust-script" = "0.36.0"
 
-[tasks.summary]
-description = "Genereer src/SUMMARY.md uit catalogus.yaml"
-run = "uv run --script scripts/genereer-summary.py"
+[tasks.paginas]
+description = "Maak ontbrekende pagina's uit src/SUMMARY.md en bouw de site"
+run = "mdbook build"
 
-[tasks.fonts]
-description = "Download en subset de Firda-fonts naar theme/fonts/"
-run = "uv run --script scripts/fonts.py"
+[tasks.qr]
+description = "Zet in elke gebouwde pagina een printfooter met QR (na mdbook build)"
+run = "rust-script scripts/print-qr.rs"
+
+[tasks.test-scripts]
+description = "Draai de unittests van de rust-scripts"
+run = "rust-script --test scripts/print-qr.rs"
 
 [tasks.compile]
 description = "Compileer de voorbeeldprojecten in voorbeelden/"
 run = "gradle -p voorbeelden/voorbeeld/hello compileKotlin --no-daemon"
 
+# Eén regel per deck. --out is relatief aan het deck (Slidev lost het zo op), --base
+# is het pad op de site. Nieuw deck: kopieer de regel en pas naam en mappen aan.
 [tasks.decks]
 description = "Bouw de sli.dev-decks naar book/slides/"
-run = "uv run --script scripts/bouw-decks.py"
-
-[tasks.qr]
-description = "Zet printfooter met QR in de gebouwde HTML en kopieer fonts"
-run = "uv run --script scripts/voeg-print-qr-toe.py"
+run = [
+  "npx --no-install slidev build slides/voorbeeld/dummy.md --base /software-developer/slides/voorbeeld/dummy/ --out ../../book/slides/voorbeeld/dummy --without-notes",
+]
 
 [tasks.build]
-description = "Volledige lokale site-build (fonts, summary, voorbeelden, mdBook, QR, decks)"
-depends = ["fonts", "summary", "compile"]
+description = "Volledige lokale site-build (voorbeelden, mdBook, QR, decks)"
+depends = ["compile"]
 run = [
   "mdbook build",
-  "uv run --script scripts/voeg-print-qr-toe.py",
-  "uv run --script scripts/bouw-decks.py",
+  "rust-script scripts/print-qr.rs",
+  { task = "decks" },
 ]
