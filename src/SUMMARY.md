@@ -1,3 +1,6 @@
+<!-- Structuur van de site. Zet een nieuw hoofdstuk hier neer.
+     mise run paginas maakt het Markdown-bestand als het nog ontbreekt. -->
+
 # Summary
 
 - [Start](index.md)
