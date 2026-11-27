@@ -5,9 +5,6 @@ node_modules/
 **/build/
 !**/src/**/build/
 
-# Generated fonts (SIL OFL; gemaakt met mise run fonts)
-**/*.woff2
-
 # Editor / OS
 .idea/
 *.iml

@@ -5,14 +5,14 @@
  * Tokens uit template.firda-css (firda-template v0.3.1).
  */
 
-@font-face { font-family: "Work Sans"; font-style: normal; font-weight: 300; font-display: swap; src: url("../fonts/WorkSans-Light.woff2") format("woff2"); }
-@font-face { font-family: "Work Sans"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/WorkSans-Regular.woff2") format("woff2"); }
-@font-face { font-family: "Work Sans"; font-style: italic; font-weight: 400; font-display: swap; src: url("../fonts/WorkSans-Italic.woff2") format("woff2"); }
-@font-face { font-family: "Work Sans"; font-style: normal; font-weight: 500; font-display: swap; src: url("../fonts/WorkSans-Medium.woff2") format("woff2"); }
-@font-face { font-family: "Work Sans"; font-style: normal; font-weight: 600; font-display: swap; src: url("../fonts/WorkSans-SemiBold.woff2") format("woff2"); }
-@font-face { font-family: "Work Sans"; font-style: normal; font-weight: 700; font-display: swap; src: url("../fonts/WorkSans-Bold.woff2") format("woff2"); }
-@font-face { font-family: "Work Sans"; font-style: italic; font-weight: 700; font-display: swap; src: url("../fonts/WorkSans-BoldItalic.woff2") format("woff2"); }
-@font-face { font-family: "Libertinus Serif"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/LibertinusSerif-Regular.woff2") format("woff2"); }
+@font-face { font-family: "Work Sans"; font-style: normal; font-weight: 300; font-display: swap; src: url("../../fonts/WorkSans-Light.woff2") format("woff2"); }
+@font-face { font-family: "Work Sans"; font-style: normal; font-weight: 400; font-display: swap; src: url("../../fonts/WorkSans-Regular.woff2") format("woff2"); }
+@font-face { font-family: "Work Sans"; font-style: italic; font-weight: 400; font-display: swap; src: url("../../fonts/WorkSans-Italic.woff2") format("woff2"); }
+@font-face { font-family: "Work Sans"; font-style: normal; font-weight: 500; font-display: swap; src: url("../../fonts/WorkSans-Medium.woff2") format("woff2"); }
+@font-face { font-family: "Work Sans"; font-style: normal; font-weight: 600; font-display: swap; src: url("../../fonts/WorkSans-SemiBold.woff2") format("woff2"); }
+@font-face { font-family: "Work Sans"; font-style: normal; font-weight: 700; font-display: swap; src: url("../../fonts/WorkSans-Bold.woff2") format("woff2"); }
+@font-face { font-family: "Work Sans"; font-style: italic; font-weight: 700; font-display: swap; src: url("../../fonts/WorkSans-BoldItalic.woff2") format("woff2"); }
+@font-face { font-family: "Libertinus Serif"; font-style: normal; font-weight: 400; font-display: swap; src: url("../../fonts/LibertinusSerif-Regular.woff2") format("woff2"); }
 
 :root {
   --firda-leisteen-groen: #3a5757;
