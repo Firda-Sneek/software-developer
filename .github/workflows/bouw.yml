@@ -36,7 +36,7 @@ jobs:
       - name: Unittests van de rust-scripts
         run: mise run test-scripts
 
-      - name: Voorbeelden, mdBook, QR en decks
+      - name: Voorbeelden, include-check, mdBook, QR en decks
         run: mise run build
 
       - name: Upload Pages-artifact (alleen book/)

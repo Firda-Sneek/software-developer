@@ -9,17 +9,25 @@ rust = "1.94"
 description = "Maak ontbrekende pagina's uit src/SUMMARY.md en bouw de site"
 run = "mdbook build"
 
-[tasks.qr]
-description = "Zet in elke gebouwde pagina een printfooter met QR (na mdbook build)"
-run = "rust-script scripts/print-qr.rs"
+[tasks.check-includes]
+description = "Controleer alle region-verwijzingen in src/ en slides/ (ook in de pre-commit hook)"
+run = "rust-script scripts/regions.rs check"
 
 [tasks.test-scripts]
 description = "Draai de unittests van de rust-scripts"
-run = "rust-script --test scripts/print-qr.rs"
+run = ["rust-script --test scripts/regions.rs", "rust-script --test scripts/print-qr.rs"]
+
+[tasks.setup]
+description = "Zet de pre-commit hook aan (git config core.hooksPath .githooks)"
+run = "git config core.hooksPath .githooks"
 
 [tasks.compile]
 description = "Compileer de voorbeeldprojecten in voorbeelden/"
 run = "gradle -p voorbeelden/voorbeeld/hello compileKotlin --no-daemon"
+
+[tasks.qr]
+description = "Zet in elke gebouwde pagina een printfooter met QR (na mdbook build)"
+run = "rust-script scripts/print-qr.rs"
 
 # Eén regel per deck. --out is relatief aan het deck (Slidev lost het zo op), --base
 # is het pad op de site. Nieuw deck: kopieer de regel en pas naam en mappen aan.
@@ -30,8 +38,8 @@ run = [
 ]
 
 [tasks.build]
-description = "Volledige lokale site-build (voorbeelden, mdBook, QR, decks)"
-depends = ["compile"]
+description = "Volledige lokale site-build (voorbeelden, include-check, mdBook, QR, decks)"
+depends = ["compile", "check-includes"]
 run = [
   "mdbook build",
   "rust-script scripts/print-qr.rs",

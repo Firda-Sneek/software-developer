@@ -1,0 +1,3 @@
+#!/bin/sh
+# Blokkeert een commit als een region-verwijzing kapot is. Aanzetten: mise run setup
+exec mise run check-includes

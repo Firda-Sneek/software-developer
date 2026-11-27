@@ -10,6 +10,12 @@ src = "src"
 create-missing = true
 build-dir = "book"
 
+# Vult {{#include pad:regionnaam}} uit `#region`-markers in de bronbestanden.
+# Draait vóór de ingebouwde links-preprocessor. Vereist rust-script (mise install).
+[preprocessor.regions]
+command = "rust-script scripts/regions.rs preprocess"
+before = ["links"]
+
 [output.html]
 site-url = "/software-developer/"
 git-repository-url = "https://github.com/Firda-Sneek/software-developer"
